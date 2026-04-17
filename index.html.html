@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shrabon Paul | Creative Developer</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <style>
+        /* --- 1. ULTRA PREMIUM PALETTE --- */
+        :root {
+            --bg-body: #030005;
+            --bg-card: rgba(20, 20, 25, 0.6);
+            
+            /* Enhanced Neon Gradients */
+            --primary-gradient: linear-gradient(135deg, #a855f7 0%, #d946ef 50%, #f472b6 100%);
+            --secondary-gradient: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
+            
+            --glow-primary: rgba(168, 85, 247, 0.6);
+            --glow-secondary: rgba(236, 72, 153, 0.6);
+            
+            --border-light: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(255, 255, 255, 0.2);
+            
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            
+            --radius: 24px;
+        }
+
+        /* --- 2. BASE STYLES & ANIMATED BACKGROUND --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* HIDE DEFAULT CURSOR */ }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        /* --- NEW: CUSTOM CURSOR STYLES --- */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #d946ef;
+            box-shadow: 0 0 10px #d946ef;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Animated Aurora Background */
+        body::before {
+            content: '';
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(59, 7, 100, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(131, 24, 67, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(17, 24, 39, 0) 0%, rgba(0,0,0,1) 100%);
+            z-index: -2;
+            animation: pulseBg 10s ease-in-out infinite alternate;
+        }
+        
+        /* Floating Orbs */
+        .orb {
+            position: fixed; border-radius: 50%; filter: blur(80px); z-index: -1; opacity: 0.4;
+            animation: floatOrb 20s infinite linear;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #4c1d95; }
+        .orb-2 { bottom: -10%; right: -10%; width: 40vw; height: 40vw; background: #be185d; animation-direction: reverse; }
+
+        @keyframes pulseBg { 0% { opacity: 0.8; } 100% { opacity: 1; } }
+        @keyframes floatOrb { 0% { transform: rotate(0deg) translate(0,0); } 100% { transform: rotate(360deg) translate(50px, 50px); } }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; cursor: none; }
+        button { cursor: none; }
+        ul { list-style: none; }
+        img { display: block; }
+        
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 5rem 0; }
+
+        /* SCROLL REVEAL ANIMATION CLASSES */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Typography */
+        h1, h2, h3 { line-height: 1.1; color: var(--text-main); letter-spacing: -0.02em; }
+        
+        .section-title { 
+            font-size: 3rem; font-weight: 700; text-align: center; margin-bottom: 0.5rem;
+            background: linear-gradient(to bottom, #fff 0%, #a5b4fc 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+        .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 4rem; max-width: 600px; margin: 0 auto 4rem auto; font-size: 1.1rem; }
+
+        /* --- 3. NAVIGATION (Glassmorphism) --- */
+        header {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(3, 0, 5, 0.7);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            z-index: 1000; padding: 1.2rem 0;
+            border-bottom: 1px solid var(--border-light);
+            height: 90px;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 100%; }
+        
+        .logo { font-weight: 800; font-size: 1.8rem; color: #fff; display: flex; align-items: center; gap: 5px; }
+        .logo i { color: #d946ef; font-size: 1.2rem; }
+        
+        .nav-menu { display: flex; gap: 3rem; background: rgba(255,255,255,0.03); padding: 0.8rem 2rem; border-radius: 50px; border: 1px solid var(--border-light); }
+        .nav-link { font-size: 0.9rem; font-weight: 500; color: #cbd5e1; transition: 0.3s; }
+        .nav-link:hover { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+        
+        .hamburger { display: none; font-size: 1.5rem; cursor: none; color: white; }
+
+        /* --- 4. MARQUEE (Faded Edges) --- */
+        .marquee-section {
+            background: #000;
+            padding: 2rem 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);
+            overflow: hidden; white-space: nowrap; position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee-track {
+            display: inline-flex; gap: 5rem;
+            animation: scroll 25s linear infinite;
+        }
+        .tech-item {
+            font-size: 1.2rem; color: #64748b; display: flex; align-items: center; gap: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        }
+        .tech-item:hover { color: #fff; text-shadow: 0 0 15px currentColor; transform: scale(1.1); }
+        .tech-item i { font-size: 1.5rem; }
+        
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- 5. CATEGORY BAR (Floating Glass) --- */
+        .category-section {
+            background: rgba(5, 5, 5, 0.8);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+            margin-top: 90px; position: sticky; top: 90px; z-index: 900;
+            backdrop-filter: blur(15px);
+        }
+        .category-scroll {
+            display: flex; justify-content: center; gap: 2rem;
+            overflow-x: auto; padding-bottom: 5px; scrollbar-width: none;
+        }
+        .category-item {
+            display: flex; flex-direction: column; align-items: center;
+            min-width: 80px; cursor: none; transition: 0.4s; opacity: 0.6;
+        }
+        .category-item:hover { opacity: 1; transform: translateY(-3px); }
+
+        .cat-icon {
+            width: 50px; height: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; color: #fff;
+            margin-bottom: 0.5rem;
+            transition: 0.4s;
+            position: relative; overflow: hidden;
+        }
+
+        .category-item.active { opacity: 1; }
+        .category-item.active .cat-icon {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(217, 70, 239, 0.2));
+            border-color: #d946ef;
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.3);
+            color: #f0abfc;
+        }
+        .cat-text { font-size: 0.8rem; font-weight: 500; color: #e2e8f0; }
+
+        /* --- 6. HERO SECTION --- */
+        .hero {
+            min-height: 85vh;
+            display: flex; align-items: center;
+            position: relative;
+            padding: 3rem 0;
+        }
+        .hero-wrapper { 
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: center; 
+        }
+        .hero-text h1 { 
+            font-size: 4.2rem; margin-bottom: 1.5rem; color: white; letter-spacing: -2px; font-weight: 800;
+        }
+        .hero-text .gradient-text { 
+            background: var(--secondary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.4));
+        }
+        .hero-text p { font-size: 1.2rem; color: #94a3b8; margin-bottom: 3rem; max-width: 90%; line-height: 1.8; }
+        
+        /* BANNER SLIDER */
+        .slider-container {
+            width: 100%; 
+            aspect-ratio: 16/9; 
+            border-radius: var(--radius); 
+            overflow: hidden; 
+            padding: 0;
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.8), 0 0 30px rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(255,255,255,0.15);
+            position: relative;
+            background: #000;
+        }
+        
+        .slider-container::after {
+            content: ''; position: absolute; inset: 0;
+            border-radius: var(--radius);
+            padding: 1px;
+            background: linear-gradient(45deg, transparent, #d946ef, transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .swiper { width: 100%; height: 100%; }
+        
+        /* Updated Swiper Slide to be clickable */
+        .swiper-slide { position: relative; cursor: none; }
+        .swiper-slide img { 
+            width: 100%; height: 100%; object-fit: fill; border-radius: 0; display: block;
+            transition: transform 0.5s ease;
+        }
+        /* Click Hint Overlay */
+        .slide-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; transition: 0.3s;
+        }
+        .slide-overlay span {
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            padding: 15px 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);
+            font-weight: 600; color: #fff; transform: translateY(20px); transition: 0.3s;
+        }
+        .swiper-slide:hover .slide-overlay { opacity: 1; }
+        .swiper-slide:hover .slide-overlay span { transform: translateY(0); }
+        .swiper-slide:hover img { transform: scale(1.03); }
+
+        /* Premium Buttons */
+        .btn-group { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        .btn { padding: 1rem 2.5rem; border-radius: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; cursor: none; border:none; transition: 0.4s; position: relative; overflow: hidden; font-size: 1rem; }
+        
+        .btn-primary { 
+            background: white; color: black;
+        }
+        .btn-primary:hover { 
+            background: #f0f0f0; 
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3); transform: translateY(-2px);
+        }
+        
+        .btn-glow {
+            background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .btn-glow:hover {
+            border-color: #d946ef; color: #d946ef;
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.2);
+        }
+
+        /* --- 7. DYNAMIC CONTENT & CARDS --- */
+        #dynamic-content { min-height: 400px; transition: opacity 0.5s ease; opacity: 1; }
+        .fade-out { opacity: 0 !important; transform: translateY(10px); }
+
+        .project-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+        
+        /* UPDATED CARD FOR 3D TILT */
+        .project-card {
+            background: rgba(20, 20, 25, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; overflow: hidden;
+            transition: transform 0.1s linear, box-shadow 0.3s ease; /* Faster transition for Tilt */
+            position: relative;
+            backdrop-filter: blur(10px);
+            group: project;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .project-card:hover {
+            border-color: rgba(217, 70, 239, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5), 0 0 30px rgba(168, 85, 247, 0.1); 
+        }
+        
+        .project-header {
+            height: 220px; display: flex; align-items: center; justify-content: center; font-size: 5rem;
+            position: relative; 
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            overflow: hidden;
+            transform: translateZ(20px); /* 3D Depth */
+        }
+        .project-header::before {
+            content: ''; position: absolute; width: 150%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transform: skewX(-20deg) translateX(-150%);
+            transition: 0.5s;
+        }
+        .project-card:hover .project-header::before { transform: skewX(-20deg) translateX(150%); transition: 0.7s; }
+
+        .project-body { padding: 2.5rem; transform: translateZ(30px); /* 3D Depth */ }
+        .meta-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        
+        .tag {
+            background: rgba(168, 85, 247, 0.1); color: #d946ef; padding: 6px 12px;
+            border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .status { font-size: 0.8rem; color: #4ade80; display: flex; align-items: center; gap: 5px; }
+        .status::before { 
+            content: ''; width: 8px; height: 8px; background: #4ade80; border-radius: 50%; 
+            box-shadow: 0 0 8px #4ade80; 
+        }
+        
+        @keyframes blinkingGlow {
+            0% { box-shadow: 0 0 5px #4ade80; opacity: 1; transform: scale(1); }
+            50% { box-shadow: 0 0 20px #4ade80, 0 0 10px #4ade80 inset; opacity: 0.8; transform: scale(1.1); }
+            100% { box-shadow: 0 0 5px #4ade80; opacity: 1; transform: scale(1); }
+        }
+        
+        .status-blink::before {
+            animation: blinkingGlow 1.5s infinite ease-in-out;
+            background-color: #00ff6a;
+        }
+
+        /* --- ADDED: 3D ANIMATION EFFECTS FOR 'FOR YOU' SECTION --- */
+        @keyframes floatingIcon3D {
+            0% { transform: translateZ(30px) translateY(0px) rotateX(0deg) rotateY(0deg) scale(1); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+            33% { transform: translateZ(70px) translateY(-10px) rotateX(25deg) rotateY(-20deg) scale(1.15); filter: drop-shadow(-15px 25px 20px rgba(0,0,0,0.6)); }
+            66% { transform: translateZ(70px) translateY(10px) rotateX(-25deg) rotateY(20deg) scale(1.15); filter: drop-shadow(15px -25px 20px rgba(0,0,0,0.6)); }
+            100% { transform: translateZ(30px) translateY(0px) rotateX(0deg) rotateY(0deg) scale(1); filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
+        }
+        .animate-3d-icon {
+            display: inline-block;
+            animation: floatingIcon3D 6s infinite ease-in-out;
+            transform-style: preserve-3d;
+        }
+
+        .project-body h3 { font-size: 1.8rem; margin-bottom: 0.8rem; color: white; }
+        .project-body p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem; }
+        
+        .project-link { 
+            width: 100%; padding: 1rem; text-align: center; border-radius: 12px;
+            background: rgba(255,255,255,0.05); color: white; font-weight: 600;
+            display: block; transition: 0.3s; border: 1px solid rgba(255,255,255,0.05); cursor: none;
+        }
+        .project-link:hover { 
+            background: var(--primary-gradient); border-color: transparent;
+            box-shadow: 0 5px 20px rgba(217, 70, 239, 0.4);
+        }
+        
+        .sub-header {
+            font-size: 1.8rem; margin: 4rem 0 2rem 0;
+            color: #fff; border-left: 4px solid #d946ef; padding-left: 1rem;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            padding: 2rem; border-radius: 16px; text-align: center;
+            transition: 0.3s;
+        }
+        .stat-card:hover { background: rgba(255,255,255,0.04); transform: translateY(-5px); border-color: #d946ef; }
+        .stat-number { font-size: 3rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; display: block; }
+        .stat-label { color: #94a3b8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- UPDATED ABOUT SECTION STYLES --- */
+        .about-story-container { padding: 0; overflow: hidden; }
+        .about-row {
+            display: flex; align-items: center; justify-content: space-between; gap: 4rem;
+            margin-bottom: 8rem; min-height: 400px;
+        }
+        .about-row:nth-child(even) { flex-direction: row-reverse; }
+        
+        .about-text {
+            flex: 1; 
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .about-visual {
+            flex: 1; display: flex; justify-content: center; align-items: center;
+            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s;
+        }
+
+        /* Typography & Effects */
+        .about-h {
+            font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem;
+            color: #ffffff;
+            font-weight: 800;
+        }
+        .about-p { color: #94a3b8; font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        
+        .highlight {
+            color: #d946ef; font-weight: 600; cursor: none;
+            transition: 0.3s; position: relative; display: inline-block;
+        }
+        .highlight:hover { color: #fff; text-shadow: 0 0 15px #d946ef; }
+
+        /* --- TYPEWRITER CURSOR --- */
+        .cursor-bar {
+            display: inline-block;
+            width: 3px;
+            height: 1.2em;
+            background-color: #d946ef;
+            margin-left: 5px;
+            vertical-align: bottom;
+            animation: blinkCursor 0.8s infinite;
+            box-shadow: 0 0 10px rgba(217, 70, 239, 0.8);
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Visual Elements */
+        .profile-glow-ring {
+            width: 280px; height: 280px; border-radius: 50%;
+            background: url('https://i.ibb.co/FbJ41jvv/IMG-20251216-195928820-2.jpg') center/cover;
+            position: relative; box-shadow: 0 0 60px rgba(168, 85, 247, 0.4);
+            border: 2px solid rgba(255,255,255,0.1); z-index: 2;
+        }
+        .profile-glow-ring::after {
+            content: ''; position: absolute; inset: -15px; border-radius: 50%;
+            border: 2px dashed rgba(217, 70, 239, 0.5);
+            animation: spinSlow 20s linear infinite;
+        }
+
+        .abstract-card {
+            width: 100%; max-width: 450px; height: 300px;
+            background: rgba(255,255,255,0.02); border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 5rem; color: #d946ef;
+            box-shadow: 0 30px 60px -10px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px); position: relative; overflow: hidden;
+        }
+        .abstract-card::before {
+            content: ''; position: absolute; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%);
+            top: -50%; left: -50%;
+        }
+
+        @keyframes spinSlow { 100% { transform: rotate(360deg); } }
+
+        /* --- PAGES (AI & BANNERS) --- */
+        #main-portfolio { display: block; }
+        
+        .page-overlay { 
+            display: none; padding-top: 120px; padding-bottom: 50px; 
+            animation: fadeInUp 0.6s ease; min-height: 100vh;
+        }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .feature-card-pro { 
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 20px; padding: 2.5rem;
+            transition: 0.3s; position: relative; overflow: hidden; height: 100%;
+        }
+        .feature-card-pro:hover { border-color: #a855f7; box-shadow: 0 0 40px rgba(168, 85, 247, 0.1); }
+        .feature-card-pro h3 { margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; font-size: 1.4rem; }
+        
+        .pricing-card-dark { 
+            background: radial-gradient(circle at top, #1e1b4b 0%, #000 100%);
+            color: white; padding: 4rem 2rem; border-radius: 30px; text-align: center; margin: 4rem auto; max-width: 500px; 
+            border: 1px solid rgba(168, 85, 247, 0.3); position: relative;
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.15);
+        }
+        
+        /* Banner Specific Styles */
+        .banner-hero-text { text-align: center; max-width: 800px; margin: 0 auto 4rem auto; }
+        .banner-hero-text h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .check-list li { margin-bottom: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 10px; }
+        .check-list li i { color: #4ade80; }
+
+        /* --- ADDED CSS FOR NEW SECTIONS BELOW MARQUEE --- */
+        .floating-bg-text {
+            font-size: 8vw;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.02);
+            text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
+            user-select: none;
+            padding: 2rem 0;
+            pointer-events: none;
+            letter-spacing: 5px;
+        }
+        
+        .power-banner {
+            text-align: center;
+            padding: 6rem 1rem;
+            background: radial-gradient(circle at center, rgba(20, 20, 25, 0.8) 0%, transparent 80%);
+            border-top: 1px solid rgba(255,255,255,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            margin: 2rem 0;
+        }
+        .power-banner h2 { font-size: 3rem; line-height: 1.2; }
+    
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .service-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: 0.4s;
+            text-align: center;
+        }
+        .service-box:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: #a855f7;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(168, 85, 247, 0.1);
+        }
+        .service-icon {
+            font-size: 3rem;
+            color: #d946ef;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(217, 70, 239, 0.5));
+        }
+        .service-box h3 { font-size: 1.4rem; color: #fff; margin-bottom: 1rem; }
+        .service-box p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+    
+        .types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .type-pill {
+            background: linear-gradient(135deg, rgba(20,20,25,0.8), rgba(10,10,15,0.9));
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+        .type-pill:hover {
+            border-color: #4ade80;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
+            transform: scale(1.02);
+        }
+        .type-pill strong { color: #fff; font-size: 1.2rem; display: block; margin-bottom: 0.5rem; }
+        .type-pill span { color: #94a3b8; font-size: 0.9rem; }
+    
+        .check-grid-large {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.02);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+        .check-item:hover { background: rgba(255,255,255,0.05); border-color: #60a5fa; box-shadow: 0 0 15px rgba(96, 165, 250, 0.1); }
+        .check-item i { color: #4ade80; font-size: 1.3rem; }
+    
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+        .step-card {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+        }
+        .step-num {
+            font-size: 4rem;
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(217, 70, 239, 0.3);
+            margin-bottom: 1rem;
+            transition: 0.3s;
+        }
+        .step-card:hover .step-num {
+            -webkit-text-stroke: 2px #d946ef;
+            text-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
+            transform: translateY(-10px);
+        }
+        .step-card h4 { color: #fff; font-size: 1.2rem; }
+    
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .test-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            transition: 0.3s;
+        }
+        .test-card:hover { border-color: #f472b6; box-shadow: 0 10px 30px rgba(244, 114, 182, 0.1); }
+        .test-card i { font-size: 2rem; color: #d946ef; margin-bottom: 1.5rem; opacity: 0.5; }
+        .test-card p { color: #cbd5e1; font-size: 1.2rem; font-style: italic; }
+    
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+            align-items: center;
+        }
+        .price-card {
+            background: rgba(20,20,25,0.6);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-card:hover { transform: translateY(-10px); border-color: #a855f7; box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(168, 85, 247, 0.1); }
+        .price-card h3 { color: #94a3b8; font-size: 1.2rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px; }
+        .price-card h2 { font-size: 3rem; color: #fff; margin-bottom: 2rem; }
+        .price-card ul { list-style: none; margin-bottom: 2rem; text-align: left; }
+        .price-card ul li { color: #cbd5e1; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
+        .price-card ul li i { color: #4ade80; }
+        
+        .price-card.popular {
+            background: radial-gradient(circle at top, rgba(168, 85, 247, 0.15) 0%, rgba(20,20,25,0.9) 100%);
+            border-color: rgba(168, 85, 247, 0.5);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.1);
+        }
+        .price-card.popular:hover { transform: scale(1.05) translateY(-10px); }
+        .badge {
+            position: absolute;
+            top: 20px; right: -30px;
+            background: var(--primary-gradient);
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            box-shadow: 0 5px 15px rgba(217, 70, 239, 0.4);
+        }
+        .price-card.premium { border-color: rgba(217, 70, 239, 0.3); }
+
+        /* --- GAP IMAGES STYLING --- */
+        .image-gap-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 50px auto 40px auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .gap-image-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.8), 0 0 30px rgba(168, 85, 247, 0.15);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+            cursor: none;
+        }
+        
+        .gap-image-wrapper:hover {
+            transform: scale(1.02) translateY(-5px);
+            border-color: rgba(217, 70, 239, 0.4);
+            box-shadow: 0 30px 60px -10px rgba(0,0,0,0.9), 0 0 50px rgba(217, 70, 239, 0.25);
+        }
+
+        .gap-image {
+            width: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Image Specific Heights */
+        .gap-img-1 { height: 280px; }
+        .gap-img-2 { height: 250px; }
+        .gap-img-3 { height: 240px; }
+        .gap-img-4 { height: 280px; }
+
+        /* The Gradient Overlay */
+        .gap-image-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0; top: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Position Bottom Center */
+            align-items: center;
+            padding-bottom: 25px; /* Spacing from bottom */
+            padding-left: 16px;
+            padding-right: 16px;
+            text-align: center;
+            pointer-events: none; /* Let hover pass through to container */
+        }
+
+        .gap-image-title {
+            color: #ffffff;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            margin: 0;
+        }
+
+        .gap-image-title.gradient-title {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            filter: drop-shadow(0 0 10px rgba(217, 70, 239, 0.3));
+        }
+
+        .gap-image-sub {
+            font-size: 15px;
+            color: #fff;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-top: 5px;
+        }
+
+        /* Titles Sizes */
+        .title-1 { font-size: 32px; }
+        .title-2 { font-size: 28px; }
+        .title-3 { font-size: 26px; }
+        .title-4 { font-size: 30px; font-weight: 600; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            * { cursor: default; } /* Revert cursor on mobile */
+            .cursor-dot, .cursor-outline { display: none; } /* Hide Custom Cursor on Mobile */
+            
+            .hero-wrapper { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+            .hero-text { order: 2; padding: 0 1rem; } 
+            .slider-container { order: 1; aspect-ratio: 16/10; }
+            .hero-text h1 { font-size: 3rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .nav-menu { display: none; }
+            .hamburger { display: block; cursor: pointer; }
+            
+            /* About Page Mobile */
+            .about-row, .about-row:nth-child(even) {
+                flex-direction: column-reverse; text-align: center; gap: 2rem; margin-bottom: 5rem;
+            }
+            .about-h { font-size: 2.5rem; }
+            .profile-glow-ring { width: 200px; height: 200px; margin: 0 auto; }
+            
+            /* Mobile Menu */
+            .nav-menu.active {
+                display: flex; position: fixed; top: 90px; left: 0; width: 100%; height: 100vh;
+                background: #000; flex-direction: column; align-items: center; padding-top: 4rem;
+                z-index: 999; border-radius: 0;
+            }
+            .project-header { height: 180px; }
+            
+            /* New Sections Mobile Adjustments */
+            .price-card.popular { transform: scale(1); }
+            .price-card.popular:hover { transform: translateY(-5px); }
+            .floating-bg-text { font-size: 12vw; }
+            .process-steps { flex-direction: column; gap: 3rem; }
+            .power-banner h2 { font-size: 2rem; }
+            
+            .image-gap-container {
+                padding: 0 16px;
+                margin: 40px auto;
+            }
+            .gap-image-title { font-size: 24px !important; }
+            .gap-image-sub { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CUSTOM CURSOR ELEMENTS -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container nav-container">
+            <a href="javascript:showHome()" class="logo">
+                <i class="fas fa-code"></i> Shrabon Paul
+            </a>
+            <ul class="nav-menu">
+                <li><a onclick="selectCategory('foryou')" class="nav-link">Home</a></li>
+                <li><a onclick="selectCategory('work')" class="nav-link">Projects</a></li>
+                <li><a onclick="selectCategory('ai')" class="nav-link">Solutions</a></li>
+                <li><a onclick="selectCategory('about')" class="nav-link">About</a></li>
+                <li><a onclick="selectCategory('contact')" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger"><i class="fas fa-bars"></i></div>
+        </div>
+    </header>
+
+    <!-- CATEGORY BAR -->
+    <div class="category-section">
+        <div class="container">
+            <div class="category-scroll">
+                <div class="category-item active" data-cat="foryou" onclick="selectCategory('foryou')">
+                    <div class="cat-icon"><i class="fas fa-star"></i></div>
+                    <span class="cat-text">For You</span>
+                </div>
+                <div class="category-item" data-cat="ai" onclick="selectCategory('ai')">
+                    <div class="cat-icon"><i class="fas fa-robot"></i></div>
+                    <span class="cat-text">AI Tech</span>
+                </div>
+                <div class="category-item" data-cat="work" onclick="selectCategory('work')">
+                    <div class="cat-icon"><i class="fas fa-layer-group"></i></div>
+                    <span class="cat-text">Portfolio</span>
+                </div>
+                <div class="category-item" data-cat="about" onclick="selectCategory('about')">
+                    <div class="cat-icon"><i class="fas fa-fingerprint"></i></div>
+                    <span class="cat-text">About</span>
+                </div>
+                <div class="category-item" data-cat="contact" onclick="selectCategory('contact')">
+                    <div class="cat-icon"><i class="fas fa-envelope-open-text"></i></div>
+                    <span class="cat-text">Contact</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <div id="main-portfolio">
+        
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container hero-wrapper">
+                <div class="hero-text reveal">
+                    <h1>Architecting the <br><span class="gradient-text">Digital Reality.</span></h1>
+                    <p>
+                        I transform complex problems into elegant, high-performance automated systems. 
+                        Specializing in Web Development & AI Agents that scale your business while you sleep.
+                    </p>
+                    <div class="btn-group">
+                        <a onclick="selectCategory('work')" class="btn btn-primary">Explore Work <i class="fas fa-arrow-right"></i></a>
+                        <a onclick="selectCategory('contact')" class="btn btn-glow">Hire Me</a>
+                    </div>
+                </div>
+                
+                <!-- CINEMATIC BANNER SLIDER (UPDATED) -->
+                <div class="slider-container reveal">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            <!-- Banner 1: Normal Website -->
+                            <div class="swiper-slide" onclick="openBannerPage(1)">
+                                <img src="https://i.postimg.cc/8PKVtBRC/file_00000000981871fa9bef4b296fc2bcfc_(1).png" alt="Normal Website Development">
+                                <div class="slide-overlay"><span>View Starter Plan</span></div>
+                            </div>
+                            <!-- Banner 2: Business Website -->
+                            <div class="swiper-slide" onclick="openBannerPage(2)">
+                                <img src="https://i.postimg.cc/pLmM7hCd/file_00000000aab871fa88f8d9283cdaa301.png" alt="Business Website Development">
+                                <div class="slide-overlay"><span>View Business Plan</span></div>
+                            </div>
+                            <!-- Banner 3: Ultra Premium -->
+                            <div class="swiper-slide" onclick="openBannerPage(3)">
+                                <img src="https://i.postimg.cc/CxRptB7d/file_0000000012b47207b225519360c3c58f.png" alt="Ultra Premium Enterprise">
+                                <div class="slide-overlay"><span>View Elite Plan</span></div>
+                            </div>
+                            <!-- Banner 4: AI Automation Banner -->
+                            <div class="swiper-slide" onclick="showAiPage()">
+                                <img src="https://i.postimg.cc/x1XV7J58/file_00000000e5b472098da57b6238861ff5.png" alt="AI Automation at Just ₹25,000">
+                                <div class="slide-overlay" style="display:flex; flex-direction:column; gap:10px; background: rgba(0,0,0,0.6);">
+                                    <h3 style="color:#fff; font-size: 2.2rem; font-weight: 800; text-align: center; text-shadow: 0 0 20px #d946ef;">AI Automation <br><span style="color: #d946ef;">at Just ₹25,000</span></h3>
+                                    <span>Click to View Details</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFINITE TECH MARQUEE -->
+        <div class="marquee-section reveal">
+            <div class="marquee-track">
+                <div class="tech-item"><i class="fab fa-react" style="color:#61DAFB"></i> React</div>
+                <div class="tech-item"><i class="fab fa-python" style="color:#3776AB"></i> Python</div>
+                <div class="tech-item"><i class="fas fa-brain" style="color:#d946ef"></i> AI Agents</div>
+                <div class="tech-item"><i class="fab fa-js" style="color:#F7DF1E"></i> JavaScript</div>
+                <div class="tech-item"><i class="fab fa-node" style="color:#339933"></i> Node.js</div>
+                <div class="tech-item"><i class="fas fa-database" style="color:#336791"></i> SQL</div>
+                <div class="tech-item"><i class="fab fa-figma" style="color:#F24E1E"></i> Figma</div>
+                <!-- Repeat -->
+                <div class="tech-item"><i class="fab fa-react" style="color:#61DAFB"></i> React</div>
+                <div class="tech-item"><i class="fab fa-python" style="color:#3776AB"></i> Python</div>
+                <div class="tech-item"><i class="fas fa-brain" style="color:#d946ef"></i> AI Agents</div>
+                <div class="tech-item"><i class="fab fa-js" style="color:#F7DF1E"></i> JavaScript</div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- NEW SECTIONS ADDED BELOW MARQUEE -->
+        <!-- ============================================== -->
+
+        <!-- Extra Floating Text 1 -->
+        <div class="floating-bg-text reveal">Built for Performance</div>
+
+        <!-- NEW HERO / INTRO SECTION -->
+        <section class="new-intro-section reveal">
+            <div class="container" style="text-align: center; max-width: 900px;">
+                <h1 style="font-size: 3.5rem; margin-bottom: 1.5rem; font-weight: 800;"><span class="gradient-text">Architecting the Digital Reality.</span></h1>
+                <p style="font-size: 1.25rem; color: #94a3b8; line-height: 1.8; margin-bottom: 1rem;">
+                    I build AI-powered systems, websites, and software that automate your business and generate results 24/7. <br>From simple websites to full business automation systems.
+                </p>
+                <p style="font-size: 1.3rem; color: #d946ef; font-weight: 600; margin-bottom: 2.5rem; text-shadow: 0 0 15px rgba(217, 70, 239, 0.4);">
+                    Helping creators and businesses scale with smart automation.
+                </p>
+                <div class="btn-group" style="justify-content: center;">
+                    <button onclick="selectCategory('contact')" class="btn btn-primary">Get Started</button>
+                    <button onclick="selectCategory('contact')" class="btn btn-glow">Book Free Call</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAP IMAGE 1 (TOP IMAGE SECTION) -->
+        <div class="image-gap-container reveal">
+            <div class="gap-image-wrapper">
+                <img src="https://image2url.com/r2/default/images/1774764749996-3bbc4b65-8737-4940-a131-98b24ec4de3a.png" alt="Showcase Presentation" class="gap-image gap-img-1">
+                <div class="gap-image-overlay">
+                    <h3 class="gap-image-title title-1">Built for Performance</h3>
+                    <p class="gap-image-sub">High-Speed Digital Ecosystems</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCROLL TEXT 1 -->
+        <div class="power-banner reveal">
+            <h2>Automation. Websites. Software. <br><span style="color: #94a3b8;">Everything your business needs.</span></h2>
+        </div>
+
+        <!-- Extra Floating Text 2 -->
+        <div class="floating-bg-text reveal" style="text-align: right; margin-top: -50px;">Designed to Convert</div>
+
+        <!-- SERVICES SECTION -->
+        <section class="services-block reveal">
+            <div class="container">
+                <h2 class="section-title">What I Build</h2>
+                <p class="section-subtitle">Comprehensive digital solutions engineered for scale.</p>
+                
+                <div class="grid-cards">
+                    <div class="service-box">
+                        <i class="fas fa-robot service-icon"></i>
+                        <h3>AI Automation</h3>
+                        <p>Automate your business tasks and workflows seamlessly.</p>
+                    </div>
+                    <div class="service-box">
+                        <i class="fas fa-laptop-code service-icon"></i>
+                        <h3>Website Design & Dev</h3>
+                        <p>Modern, fast, responsive websites built for real results.</p>
+                    </div>
+                    <div class="service-box">
+                        <i class="fas fa-code-branch service-icon"></i>
+                        <h3>Software Development</h3>
+                        <p>Custom software solutions tailored for any business need.</p>
+                    </div>
+                    <div class="service-box">
+                        <i class="fas fa-mobile-alt service-icon"></i>
+                        <h3>Custom Applications</h3>
+                        <p>Any type of software — built exactly as you envisioned.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAP IMAGE 2 (SERVICES GAP) -->
+        <div class="image-gap-container reveal">
+            <div class="gap-image-wrapper">
+                <img src="https://image2url.com/r2/default/images/1774764662744-211bbafd-592a-4a4c-8523-cb07e468b503.png" alt="Showcase Interface" class="gap-image gap-img-2">
+                <div class="gap-image-overlay">
+                    <h3 class="gap-image-title title-2">Designed to Perform. Built to Scale.</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- WEBSITE TYPES SECTION -->
+        <section class="website-types-block reveal">
+            <div class="container">
+                <div class="types-grid">
+                    <div class="type-pill"><strong>Gym Website</strong> <br><span>High-converting fitness websites with membership systems.</span></div>
+                    <div class="type-pill"><strong>Restaurant Website</strong> <br><span>Menu, online ordering & booking system.</span></div>
+                    <div class="type-pill"><strong>Portfolio Website</strong> <br><span>Personal branding & professional showcase.</span></div>
+                    <div class="type-pill"><strong>Bio / Link Website</strong> <br><span>Simple and powerful link-in-bio pages.</span></div>
+                    <div class="type-pill"><strong>Admission Form Website</strong> <br><span>Student registration & form automation systems.</span></div>
+                    <div class="type-pill"><strong>Commercial Website</strong> <br><span>Business-focused high-performance websites.</span></div>
+                    <div class="type-pill"><strong>Business Website</strong> <br><span>Complete company website with services & contact.</span></div>
+                    <div class="type-pill" style="border-color: #d946ef;"><strong>Any Type of Website</strong> <br><span style="color:#f0abfc;">Fully customized according to your needs.</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAP IMAGE 3 (WEBSITE TYPES GAP) -->
+        <div class="image-gap-container reveal">
+            <div class="gap-image-wrapper">
+                <img src="https://image2url.com/r2/default/images/1774764707423-9c8421f5-4e5b-45ae-b27e-3acad8d02b31.png" alt="Showcase Flow" class="gap-image gap-img-3">
+                <div class="gap-image-overlay">
+                    <h3 class="gap-image-title title-3 gradient-title">From Fitness to Food — I Build It All</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- POWER TEXT 2 -->
+        <div class="power-banner reveal" style="background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 60%);">
+            <h2 style="font-size: 3.5rem;">One Developer. <br><span class="gradient-text">All Digital Solutions.</span></h2>
+        </div>
+
+        <!-- Extra Floating Text 3 -->
+        <div class="floating-bg-text reveal" style="text-align: center;">Powered by Innovation</div>
+
+        <!-- FEATURES SECTION -->
+        <section class="features-checklist reveal">
+            <div class="container">
+                <h2 class="section-title">What You Get</h2>
+                <div class="check-grid-large">
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Fully Responsive (Mobile + Desktop)</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Lightning Fast Performance</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Modern UI/UX Design</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> SEO Optimized</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Secure & Reliable</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Easy to Manage Dashboard</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Contact Forms & Lead Capture</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Payment Integration</div>
+                    <div class="check-item"><i class="fas fa-check-circle" style="color:#d946ef;"></i> AI Integration (Optional)</div>
+                    <div class="check-item"><i class="fas fa-check-circle" style="color:#d946ef;"></i> Automation Systems</div>
+                    <div class="check-item"><i class="fas fa-check-circle"></i> Scalable Architecture</div>
+                    <div class="check-item"><i class="fas fa-check-circle" style="color:#4ade80;"></i> 24/7 Support Ready Systems</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GAP IMAGE 4 (FEATURES GAP) -->
+        <div class="image-gap-container reveal">
+            <div class="gap-image-wrapper">
+                <img src="https://image2url.com/r2/default/images/1774764879070-adf105d0-b778-4d42-accd-3a1a49b14352.png" alt="Showcase System" class="gap-image gap-img-4">
+                <div class="gap-image-overlay">
+                    <h3 class="gap-image-title title-4">Powered by AI. Built for Growth.</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESULTS TEXT -->
+        <div class="power-banner reveal" style="padding: 4rem 0;">
+            <h2 style="font-size: 3rem; color: #cbd5e1;">Not Just Websites. <br><span style="color: #fff; text-shadow: 0 0 20px #fff;">Complete Business Systems.</span></h2>
+        </div>
+
+        <!-- PORTFOLIO SECTION CTA -->
+        <section class="portfolio-cta reveal" style="text-align:center;">
+            <div class="container">
+                <h2 class="section-title" style="font-size: 2.5rem;">See My Work</h2>
+                <p style="color:#94a3b8; font-size:1.2rem; margin-bottom: 2rem;">From websites to full automation systems. <br>Real designs. Real performance. Real results.</p>
+                <button onclick="selectCategory('work')" class="btn btn-glow"><i class="fas fa-eye"></i> View Portfolio</button>
+            </div>
+        </section>
+
+        <!-- PROCESS SECTION -->
+        <section class="process-section reveal">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <div class="step-num">01</div>
+                        <h4>Share your idea</h4>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">02</div>
+                        <h4>I design & plan</h4>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">03</div>
+                        <h4>I develop & test</h4>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">04</div>
+                        <h4>You launch & grow</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section class="testimonials-section reveal">
+            <div class="container">
+                <h2 class="section-title">Client Feedback</h2>
+                <div class="test-grid">
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>“Best website & automation service 🔥”</p>
+                    </div>
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>“Got my business online within days”</p>
+                    </div>
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>“Professional, fast and reliable work”</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- PRICING SECTION -->
+        <section class="pricing-section reveal">
+            <div class="container">
+                <h2 class="section-title">Pricing Plans</h2>
+                <div class="pricing-grid">
+                    <div class="price-card">
+                        <h3>Basic</h3>
+                        <h2>₹5,000</h2>
+                        <ul><li><i class="fas fa-check"></i> Simple Website</li></ul>
+                        <button onclick="selectCategory('contact')" class="btn btn-glow">Select Plan</button>
+                    </div>
+                    <div class="price-card popular">
+                        <div class="badge">Most Popular</div>
+                        <h3>Pro</h3>
+                        <h2>₹15,000</h2>
+                        <ul><li><i class="fas fa-check"></i> Website + Advanced Features</li></ul>
+                        <button onclick="selectCategory('contact')" class="btn btn-primary">Select Plan</button>
+                    </div>
+                    <div class="price-card premium">
+                        <h3>Premium</h3>
+                        <h2 class="gradient-text">₹25,000</h2>
+                        <ul><li><i class="fas fa-check" style="color:#d946ef"></i> Full Website + AI + Automation</li></ul>
+                        <button onclick="selectCategory('contact')" class="btn btn-glow" style="border-color:#d946ef; color:#d946ef;">Select Plan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <section class="final-cta-section reveal">
+            <div class="container text-center" style="background: rgba(20,20,25,0.8); border: 1px solid rgba(168,85,247,0.3); padding: 5rem 2rem; border-radius: 30px; box-shadow: 0 0 50px rgba(168,85,247,0.1); backdrop-filter: blur(20px);">
+                <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Everything You Need. <br><span class="gradient-text">One Place.</span></h1>
+                <p style="font-size: 1.2rem; color: #cbd5e1; margin-bottom: 1rem;">Websites, software, and automation — all in one solution.</p>
+                <h3 style="font-size: 1.8rem; color: #fff; margin-bottom: 3rem; text-shadow: 0 0 20px #fff;">Your Business Should Work While You Sleep.</h3>
+                
+                <div class="btn-group" style="justify-content: center;">
+                    <button onclick="selectCategory('contact')" class="btn btn-primary" style="font-size: 1.2rem; padding: 1.2rem 3rem;">Start Your Project</button>
+                    <button onclick="selectCategory('contact')" class="btn btn-glow" style="font-size: 1.2rem; padding: 1.2rem 3rem;">Contact Me</button>
+                </div>
+
+                <!-- BONUS LINE -->
+                <p style="margin-top: 3rem; color: #94a3b8; font-style: italic; font-size: 1.1rem;">
+                    "I don’t just create websites. I build complete digital systems for growth."
+                </p>
+            </div>
+        </section>
+
+        <!-- Extra Floating Text 4 -->
+        <div class="floating-bg-text reveal" style="text-align: left; margin-bottom: 50px;">Your Digital Partner</div>
+
+        <!-- ============================================== -->
+        <!-- END NEW SECTIONS -->
+        <!-- ============================================== -->
+
+        <div id="content-anchor" style="height: 1px;"></div>
+
+        <!-- DYNAMIC CONTENT SECTION -->
+        <section id="projects">
+            <div class="container">
+                <div id="dynamic-title-area" class="reveal">
+                    <h2 class="section-title">Curated For You</h2>
+                    <p class="section-subtitle">Selected projects and tools based on your interests.</p>
+                </div>
+                
+                <div id="dynamic-content">
+                    <!-- Loaded via JS -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+ <!-- FULL PAGE AI DETAIL (UPDATED) -->
+    <div id="ai-automation-page" class="page-overlay">
+        <div class="container">
+            <div style="margin-bottom: 2rem;">
+                <button onclick="showHome()" class="btn btn-glow"><i class="fas fa-arrow-left"></i> Back to Home</button>
+            </div>
+            
+            <!-- HERO -->
+            <div class="ai-hero reveal" style="text-align:center; margin-bottom:4rem;">
+                <span style="background: rgba(168, 85, 247, 0.1); color: #d946ef; padding: 5px 20px; border-radius: 30px; font-weight: 700; font-size: 0.8rem; border: 1px solid rgba(217, 70, 239, 0.4); box-shadow: 0 0 20px rgba(217, 70, 239, 0.2);">COMING SOON: SMART AI TOOLS FOR YOUR BUSINESS</span>
+                <h1 style="margin-top: 1.5rem; font-size: 4rem; background: linear-gradient(to right, #fff, #e2e8f0); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">AI Automation at Just ₹25,000 <span style="font-size: 2rem; color: #94a3b8;">/ $279</span></h1>
+                <p style="color: #94a3b8; max-width: 800px; margin: 1.5rem auto; font-size:1.2rem;">
+                    Transform your business with powerful AI automation tools designed to save time, boost productivity, and scale your growth effortlessly.
+                </p>
+                
+                <ul class="check-list" style="text-align:left; max-width: 400px; margin: 0 auto 2rem auto; list-style:none; padding:0;">
+                    <li style="margin-bottom: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #4ade80;"></i> Improve efficiency & productivity</li>
+                    <li style="margin-bottom: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #4ade80;"></i> Automate repetitive tasks</li>
+                    <li style="margin-bottom: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #4ade80;"></i> Get real-time insights</li>
+                    <li style="margin-bottom: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color: #4ade80;"></i> Boost growth & innovation</li>
+                </ul>
+
+                <div style="margin: 2rem auto; text-align: left; max-width: 400px; background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+                    <p style="color: #d946ef; font-weight: bold; margin-bottom: 1rem; text-align: center;">Coming Soon: Smart AI Tools for Your Business</p>
+                    <ul style="list-style: none; padding: 0; color: #94a3b8; text-align: center;">
+                        <li style="margin-bottom: 0.5rem;">Instagram Auto DM</li>
+                        <li style="margin-bottom: 0.5rem;">WhatsApp Auto DM</li>
+                        <li style="margin-bottom: 0.5rem;">AI Agents for Business Automation</li>
+                        <li>Agentic AI for Multi-task Execution</li>
+                    </ul>
+                </div>
+
+                <p style="color: #fff; font-size: 1.2rem; margin-bottom: 1.5rem;">Start automating your business today!</p>
+                <button onclick="selectCategory('contact')" class="btn btn-primary" style="font-size: 1.2rem; padding: 1rem 3rem;">Get Started</button>
+            </div>
+            
+            <!-- ABOUT -->
+            <div class="sub-header reveal" style="text-align: center; border: none; padding: 0; margin-bottom: 2rem; color: #d946ef;">ABOUT</div>
+            <div class="reveal" style="text-align: center; max-width: 800px; margin: 0 auto 4rem auto; color: #94a3b8; font-size: 1.1rem; line-height: 1.8;">
+                <h3 style="color: #fff; font-size: 2rem; margin-bottom: 1rem;">What is AI Automation?</h3>
+                <p style="margin-bottom: 1rem;">AI Automation helps businesses reduce manual work by using intelligent systems that can perform tasks automatically — faster, smarter, and more efficiently.</p>
+                <p>Whether you're a content creator, business owner, or marketer — AI tools can handle your repetitive work while you focus on growth.</p>
+            </div>
+
+            <!-- FEATURES -->
+            <div class="sub-header reveal" style="text-align: center; border: none; padding: 0; margin-bottom: 2rem; color: #d946ef;">FEATURES</div>
+            <div class="project-wrapper" style="margin-bottom: 4rem;">
+                 <div class="feature-card-pro reveal">
+                    <h3><i class="fab fa-instagram" style="color:#E1306C; font-size:2rem;"></i> Instagram Auto DM</h3>
+                    <p style="color:#94a3b8; margin-top:1rem;">Automatically send replies to your followers based on keywords, comments, or triggers. Perfect for lead generation, sales, and engagement.</p>
+                 </div>
+                 <div class="feature-card-pro reveal">
+                    <h3><i class="fab fa-whatsapp" style="color:#25D366; font-size:2rem;"></i> WhatsApp Auto DM</h3>
+                    <p style="color:#94a3b8; margin-top:1rem;">Send instant replies, automate customer support, and manage conversations 24/7 without manual effort.</p>
+                 </div>
+                 <div class="feature-card-pro reveal">
+                    <h3><i class="fas fa-robot" style="color:#a855f7; font-size:2rem;"></i> AI Agents</h3>
+                    <p style="color:#94a3b8; margin-top:1rem;">Smart AI agents that can handle tasks, answer queries, manage workflows, and act like a virtual assistant.</p>
+                 </div>
+                 <div class="feature-card-pro reveal">
+                    <h3><i class="fas fa-network-wired" style="color:#3b82f6; font-size:2rem;"></i> Agentic AI</h3>
+                    <p style="color:#94a3b8; margin-top:1rem;">Advanced AI that can perform multiple tasks independently, make decisions, and automate complete workflows.</p>
+                 </div>
+            </div>
+
+            <!-- WHY CHOOSE US -->
+            <div class="sub-header reveal" style="text-align: center; border: none; padding: 0; margin-bottom: 2rem; color: #d946ef;">WHY CHOOSE US</div>
+            <div class="reveal" style="max-width: 600px; margin: 0 auto 4rem auto; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem;">
+                <ul class="check-list" style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 1.2rem; color: #cbd5e1; display: flex; align-items: center; gap: 15px; font-size: 1.1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> Affordable pricing (₹25,000 / $279)</li>
+                    <li style="margin-bottom: 1.2rem; color: #cbd5e1; display: flex; align-items: center; gap: 15px; font-size: 1.1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> Easy to use</li>
+                    <li style="margin-bottom: 1.2rem; color: #cbd5e1; display: flex; align-items: center; gap: 15px; font-size: 1.1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> Business-focused automation</li>
+                    <li style="margin-bottom: 1.2rem; color: #cbd5e1; display: flex; align-items: center; gap: 15px; font-size: 1.1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> Save time & increase revenue</li>
+                    <li style="color: #cbd5e1; display: flex; align-items: center; gap: 15px; font-size: 1.1rem;"><i class="fas fa-star" style="color: #fbbf24;"></i> No coding required</li>
+                </ul>
+            </div>
+            
+            <!-- COMING SOON -->
+            <div class="reveal" style="text-align: center; max-width: 800px; margin: 0 auto 4rem auto; background: rgba(168, 85, 247, 0.1); padding: 2rem; border-radius: 20px; border: 1px solid rgba(168, 85, 247, 0.3);">
+                <h3 style="color: #d946ef; font-size: 1.8rem; margin-bottom: 1rem;">COMING SOON</h3>
+                <p style="color: #e2e8f0; font-size: 1.1rem;">Powerful AI tools are launching soon. Be the first to access next-gen automation tools for your business.</p>
+            </div>
+
+            <!-- PRICING -->
+            <div class="sub-header reveal" style="text-align: center; border: none; padding: 0; margin-bottom: 2rem; color: #d946ef;">PRICING</div>
+            <div class="pricing-card-dark reveal">
+                <h3 style="font-size:1.5rem; margin-bottom:1rem;">All-in-One AI Automation Package</h3>
+                <h1 style="color:#d946ef; margin: 0; font-size: 4rem; font-weight:800; text-shadow: 0 0 40px rgba(217,70,239,0.4);">₹25,000 <span style="font-size: 1.5rem; color: #94a3b8; font-weight: 500; text-shadow: none;">/ $279</span></h1>
+                
+                <div style="margin: 2rem auto; text-align: left; max-width: 250px;">
+                    <p style="color: #fff; font-weight: bold; margin-bottom: 1rem;">Includes:</p>
+                    <ul class="check-list" style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color:#4ade80"></i> Instagram Automation</li>
+                        <li style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color:#4ade80"></i> WhatsApp Automation</li>
+                        <li style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color:#4ade80"></i> AI Agent Setup</li>
+                        <li style="display: flex; align-items: center; gap: 10px;"><i class="fas fa-check" style="color:#4ade80"></i> Future Updates</li>
+                    </ul>
+                </div>
+                
+                <!-- CALL TO ACTION -->
+                <div style="margin-top: 3rem; text-align: center;">
+                    <h4 style="color: #fff; margin-bottom: 1rem; font-size: 1.2rem;">Ready to grow with AI?</h4>
+                    <button onclick="selectCategory('contact')" class="btn btn-primary" style="width:100%; justify-content:center; font-size: 1.1rem; padding: 1.2rem;">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BANNER PAGE 1: NORMAL WEBSITE -->
+    <div id="banner-page-1" class="page-overlay">
+        <div class="container">
+            <div style="margin-bottom: 2rem;"><button onclick="showHome()" class="btn btn-glow"><i class="fas fa-arrow-left"></i> Back</button></div>
+            
+            <div class="banner-hero-text">
+                <h1 class="gradient-text">Starter Web Solutions</h1>
+                <p>I am showcasing my skills as a growing Software Engineer by building clean, modern, and performance-optimized websites. Ideal for individuals, startups, and small businesses.</p>
+            </div>
+
+            <div class="project-wrapper">
+                <div class="feature-card-pro">
+                    <h3><i class="fas fa-mobile-alt" style="color:#60a5fa"></i> Fully Responsive</h3>
+                    <p style="color:#94a3b8;">Your website will work smoothly on mobile, tablet, and desktop devices, ensuring a better user experience.</p>
+                </div>
+                <div class="feature-card-pro">
+                    <h3><i class="fas fa-tachometer-alt" style="color:#4ade80"></i> Fast Loading</h3>
+                    <p style="color:#94a3b8;">Optimized code and structure for faster page loading and better performance.</p>
+                </div>
+                <div class="feature-card-pro">
+                    <h3><i class="fas fa-search" style="color:#f472b6"></i> Basic SEO</h3>
+                    <p style="color:#94a3b8;">Includes basic on-page SEO to help your website become search-engine friendly from day one.</p>
+                </div>
+            </div>
+
+            <div class="pricing-card-dark reveal" style="border-color: rgba(96, 165, 250, 0.3);">
+                <h3>Normal Website Development</h3>
+                <h1 style="color:#60a5fa; font-size: 4rem; margin:1rem 0;">₹9,000 <span style="font-size:1.5rem; color:#94a3b8;">($100)</span></h1>
+                <ul class="check-list" style="text-align:left; max-width:300px; margin:0 auto 2rem auto;">
+                    <li><i class="fas fa-check"></i> Clean & Modern Design</li>
+                    <li><i class="fas fa-check"></i> Mobile Responsive</li>
+                    <li><i class="fas fa-check"></i> Beginner Friendly</li>
+                </ul>
+                <button onclick="selectCategory('contact')" class="btn btn-primary" style="width:100%; justify-content:center;">Get Started Today</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BANNER PAGE 2: BUSINESS WEBSITE -->
+    <div id="banner-page-2" class="page-overlay">
+        <div class="container">
+            <div style="margin-bottom: 2rem;"><button onclick="showHome()" class="btn btn-glow"><i class="fas fa-arrow-left"></i> Back</button></div>
+            
+            <div class="banner-hero-text">
+                <h1 style="background: linear-gradient(to right, #fbbf24, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Corporate Growth Engine</h1>
+                <p>Specialize in building professional, scalable, and performance-driven business websites that help companies establish trust and attract clients.</p>
+            </div>
+
+            <div class="project-wrapper">
+                <div class="feature-card-pro">
+                    <h3><i class="fas fa-layer-group" style="color:#fbbf24"></i> Premium UI/UX</h3>
+                    <p style="color:#94a3b8;">A high-end, brand-focused design that reflects professionalism, trust, and authority.</p>
+                </div>
+                <div class="feature-card-pro">
+                    <h3><i class="fas fa-chart-line" style="color:#fbbf24"></i> Advanced SEO</h3>
+                    <p style="color:#94a3b8;">Search-engine–friendly structure with advanced on-page SEO to improve visibility and reach.</p>
+                </div>
+                <div class="feature-card-pro">
+                    <h3><i class="fas fa-cogs" style="color:#fbbf24"></i> Scalable Build</h3>
+                    <p style="color:#94a3b8;">Built with scalability, future updates, and long-term business growth in mind.</p>
+                </div>
+            </div>
+<div class="pricing-card-dark reveal" style="border-color: rgba(251, 191, 36, 0.3); background: radial-gradient(circle at top, #451a03 0%, #000 100%);">
+                <h3 style="color:#fbbf24">Professional Business Package</h3>
+                <h1 style="color:#fbbf24; font-size: 4rem; margin:1rem 0;">₹45,000 <span style="font-size:1.5rem; color:#94a3b8;">($5,000)</span></h1>
+                <p style="margin-bottom:2rem; color:#d97706;">For businesses that demand quality.</p>
+                <ul class="check-list" style="text-align:left; max-width:300px; margin:0 auto 2rem auto;">
+                    <li><i class="fas fa-check" style="color:#fbbf24"></i> Strong Brand Presence</li>
+                    <li><i class="fas fa-check" style="color:#fbbf24"></i> High Performance</li>
+                    <li><i class="fas fa-check" style="color:#fbbf24"></i> Conversion Focused</li>
+                </ul>
+                <button onclick="selectCategory('contact')" class="btn btn-primary" style="width:100%; justify-content:center;">Get Started Today</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BANNER PAGE 3: ULTRA PREMIUM -->
+    <div id="banner-page-3" class="page-overlay">
+        <div class="container">
+            <div style="margin-bottom: 2rem;"><button onclick="showHome()" class="btn btn-glow"><i class="fas fa-arrow-left"></i> Back</button></div>
+            
+            <div class="banner-hero-text">
+                <h1 style="background: linear-gradient(to right, #e2e8f0, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 30px rgba(255,255,255,0.3);">Enterprise Digital Architecture</h1>
+                <p>Ultra-premium, enterprise-grade website systems built for scale, performance, and long-term business growth. For brands that lead the market.</p>
+            </div>
+
+            <div class="project-wrapper">
+                <div class="feature-card-pro" style="border-color: rgba(255,255,255,0.2);">
+                    <h3><i class="fas fa-gem" style="color:#fff"></i> Bespoke Design</h3>
+                    <p style="color:#94a3b8;">100% custom-crafted UI/UX — no templates. Designed to reflect brand authority and exclusivity.</p>
+                </div>
+                <div class="feature-card-pro" style="border-color: rgba(255,255,255,0.2);">
+                    <h3><i class="fas fa-server" style="color:#fff"></i> Elite Performance</h3>
+                    <p style="color:#94a3b8;">Advanced optimization, clean architecture, and performance-first engineering for maximum speed.</p>
+                </div>
+                <div class="feature-card-pro" style="border-color: rgba(255,255,255,0.2);">
+                    <h3><i class="fas fa-code-branch" style="color:#fff"></i> Custom Architecture</h3>
+                    <p style="color:#94a3b8;">Built with a software-engineering mindset. Designed for scale, traffic, and revenue.</p>
+                </div>
+            </div>
+
+            <div class="pricing-card-dark reveal" style="border-color: rgba(255,255,255,0.5); background: radial-gradient(circle at top, #333 0%, #000 100%); box-shadow: 0 0 80px rgba(255,255,255,0.1);">
+                <h3 style="color:#fff">Ultra Premium Setup</h3>
+                <h1 style="color:#fff; font-size: 4rem; margin:1rem 0;">₹90,000 <span style="font-size:1.5rem; color:#94a3b8;">($10,000)</span></h1>
+                <p style="margin-bottom:2rem; color:#cbd5e1; font-style: italic;">"This is not a website. This is a digital asset."</p>
+                <ul class="check-list" style="text-align:left; max-width:350px; margin:0 auto 2rem auto;">
+                    <li><i class="fas fa-check" style="color:#fff"></i> Enterprise-Level Responsiveness</li>
+                    <li><i class="fas fa-check" style="color:#fff"></i> Functional Systems Integration</li>
+                    <li><i class="fas fa-check" style="color:#fff"></i> Long-term ROI Focused</li>
+                </ul>
+                <button onclick="selectCategory('contact')" class="btn btn-primary" style="width:100%; justify-content:center;">Get Started</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPDATED FOOTER WITH SOCIAL LINKS -->
+    <footer style="text-align: center; padding: 4rem 2rem; background: #010101; color: #555; border-top: 1px solid #111;">
+        <p style="font-size: 0.9rem;">&copy; 2026 Your Brand Name<br>All Rights Reserved</p>
+        <div style="margin-top: 1rem; font-size: 1.2rem; display:flex; justify-content:center; gap:1.5rem;">
+            <a href="https://wa.me/917797315569" target="_blank" style="color:#555; transition:0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.linkedin.com/in/shrabon-paul-379a44308?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" style="color:#555; transition:0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/shrabon_paul125?igsh=MTdxajZvN3VxYmNodg==" target="_blank" style="color:#555; transition:0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'"><i class="fab fa-instagram"></i></a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        // 1. Swiper Init
+        var swiper = new Swiper(".mySwiper", {
+            spaceBetween: 0,
+            effect: "fade",
+            fadeEffect: { crossFade: true },
+            loop: true,
+            speed: 1000,
+            autoplay: { delay: 4000, disableOnInteraction: false },
+            pagination: { el: ".swiper-pagination", clickable: true },
+        });
+
+        // 2. Mobile Menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // 3. Navigation & Scroll Animation
+        function showAiPage() {
+            document.getElementById('main-portfolio').style.display = 'none';
+            // Hide all pages first
+            document.querySelectorAll('.page-overlay').forEach(page => page.style.display = 'none');
+            // Show AI Page
+            document.getElementById('ai-automation-page').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            // Re-trigger reveals for the new page
+            setupScrollReveal(); 
+        }
+
+        function openBannerPage(id) {
+            document.getElementById('main-portfolio').style.display = 'none';
+            // Hide all pages first
+            document.querySelectorAll('.page-overlay').forEach(page => page.style.display = 'none');
+            // Show specific Banner Page
+            document.getElementById('banner-page-' + id).style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            // Re-trigger reveals for the new page
+            setupScrollReveal(); 
+        }
+
+        function showHome() {
+            document.getElementById('main-portfolio').style.display = 'block';
+            document.querySelectorAll('.page-overlay').forEach(page => page.style.display = 'none');
+            setupScrollReveal(); // Re-init reveal
+            window.scrollTo(0, 0);
+        }
+
+        // 4. SCROLL REVEAL OBSERVER
+        function setupScrollReveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+
+        // 5. PROFESSIONAL TYPEWRITER ENGINE
+        function runTypewriter() {
+            const textToType = "Shrabon Paul";
+            const targetElement = document.getElementById('typewriter-target');
+            
+            if (!targetElement) return; // Guard clause
+            
+            targetElement.innerHTML = ""; // Clear existing
+            let charIndex = 0;
+
+            function typeChar() {
+                if (charIndex < textToType.length) {
+                    targetElement.innerHTML += textToType.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeChar, 100); // Adjust speed here (100ms)
+                }
+            }
+            
+            // Start typing slightly after load
+            setTimeout(typeChar, 300);
+        }
+
+        // 6. CUSTOM MAGNETIC CURSOR LOGIC
+        const cursorDot = document.querySelector("[data-cursor-dot]");
+        const cursorOutline = document.querySelector("[data-cursor-outline]");
+
+        window.addEventListener("mousemove", function (e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Dot follows instantly
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Outline follows with slight delay (handled by CSS transition, we just set position)
+            cursorOutline.style.left = `${posX}px`;
+            cursorOutline.style.top = `${posY}px`;
+        });
+        
+        // Add hover effect to links/buttons
+        document.addEventListener('mouseover', (e) => {
+           if(e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('.category-item') || e.target.closest('.project-card') || e.target.closest('.swiper-slide')) {
+               cursorOutline.style.width = '70px';
+               cursorOutline.style.height = '70px';
+               cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+           } 
+        });
+        
+        document.addEventListener('mouseout', (e) => {
+           if(e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('.category-item') || e.target.closest('.project-card') || e.target.closest('.swiper-slide')) {
+               cursorOutline.style.width = '40px';
+               cursorOutline.style.height = '40px';
+               cursorOutline.style.backgroundColor = 'transparent';
+           } 
+        });
+
+        // 7. 3D TILT EFFECT FOR CARDS
+        function initTiltEffect() {
+            const cards = document.querySelectorAll('.project-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -10; // Max tilt deg
+                    const rotateY = ((x - centerX) / centerX) * 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                });
+            });
+        }
+
+        // 8. RICH CONTENT DATA (UPDATED WITH 3D EFFECT & LINKS)
+        const contentData = {
+            foryou: `
+                <div class="project-wrapper">
+                    <!-- Project 1 (With 3D Animate Icon) -->
+                    <div class="project-card reveal">
+                        <div class="project-header" style="background: radial-gradient(circle, #1e3a8a 0%, #000 70%); perspective: 1000px;">
+                            <i class="fas fa-calculator animate-3d-icon" style="color: #60a5fa; text-shadow: 0 0 30px #60a5fa; font-size: 5rem;"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="meta-row">
+                                <span class="tag">Web App</span>
+                                <span class="status status-blink">Live</span>
+                            </div>
+                            <h3>Neon Calculator</h3>
+                            <p>A mathematical interface designed with glassmorphism principles. Fully responsive with history tracking and advanced scientific functions.</p>
+                            <a href="https://srabanpaul2007-creator.github.io/Shrabon-/" target="_blank" class="project-link">Launch App</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 (With 3D Animate Icon) -->
+                    <div class="project-card reveal">
+                        <div class="project-header" style="background: radial-gradient(circle, #581c87 0%, #000 70%); perspective: 1000px;">
+                            <i class="fas fa-robot animate-3d-icon" style="color: #d946ef; text-shadow: 0 0 30px #d946ef; font-size: 5rem;"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="meta-row">
+                                <span class="tag">AI System</span>
+                                <span class="status">Beta</span>
+                            </div>
+                            <h3>Auto-Pilot Business</h3>
+                            <p>An intelligent workflow system that automates lead capture, CRM entry, and email follow-ups. Save 20+ hours per week.</p>
+                            <a onclick="showAiPage()" class="project-link">View Architecture</a>
+                        </div>
+                    </div>
+                </div>
+            `,
+            ai: `
+                <div class="project-wrapper">
+                    <div class="project-card reveal">
+                        <div class="project-header" style="background: radial-gradient(circle, #831843 0%, #000 70%);">
+                            <i class="fab fa-instagram" style="color: #f472b6;"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="meta-row">
+                                <span class="tag">Growth Tool</span>
+                                <span class="status status-blink">Active</span>
+                            </div>
+                            <h3>IG Engagement Bot</h3>
+                            <p>Uses natural language processing to reply to comments and DMs contextually. Boosts algorithm ranking by 200%.</p>
+                            <a onclick="showAiPage()" class="project-link">See Details</a>
+                        </div>
+                    </div>
+                    <div class="project-card reveal">
+                        <div class="project-header" style="background: radial-gradient(circle, #14532d 0%, #000 70%);">
+                            <i class="fas fa-spider" style="color: #4ade80;"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="meta-row">
+                                <span class="tag">Data Mining</span>
+                                <span class="status" style="color:#fbbf24">Dev</span>
+                            </div>
+                            <h3>Lead Scraper Pro</h3>
+                            <p>Extracts emails, phone numbers, and business details from targeted websites into a clean CSV format automatically.</p>
+                            <a class="project-link" style="opacity:0.5; cursor:not-allowed;">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+            `,
+            work: `
+                <!-- PAID PROJECTS SECTION -->
+                <h3 class="sub-header reveal">Paid Projects</h3>
+                <div class="project-wrapper">
+                     <!-- Oxygen Gym -->
+                     <div class="project-card reveal">
+                        <div class="project-header" style="background: radial-gradient(circle, #991b1b 0%, #000 70%);">
+                            <i class="fas fa-dumbbell" style="color: #fca5a5; font-size:4rem;"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="meta-row">
+                                <span class="tag">Business Website</span>
+                                <span class="status status-blink">Live System</span>
+                            </div>
+                            <h3>Oxygen Gym Malda</h3>
+                            <p>A premium commercial website built for a top-tier fitness center. Features responsive design, membership integrations, and SEO optimization.</p>
+                            <a href="https://oxygengymmalda.in" target="_blank" class="project-link">Visit Website</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CREATIVE PROJECTS SECTION -->
+                <h3 class="sub-header reveal" style="border-color: #60a5fa;">Creative Projects</h3>
+                <div class="project-wrapper">
+                    <!-- Neon Calculator -->
+                    <div class="project-card reveal">
+                        <div class="project-header" style="background: radial-gradient(circle, #1e3a8a 0%, #000 70%);">
+                            <i class="fas fa-calculator" style="color: #60a5fa;"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="meta-row">
+                                <span class="tag">Web App</span>
+                                <span class="status status-blink">Live</span>
+                            </div>
+                            <h3>Neon Calculator</h3>
+                            <p>A mathematical interface designed with glassmorphism principles. Fully responsive with history tracking and advanced scientific functions.</p>
+                            <a href="https://srabanpaul2007-creator.github.io/Shrabon-/" target="_blank" class="project-link">Launch App</a>
+                        </div>
+                    </div>
+
+                    <!-- Event Photo Live -->
+                     <div class="project-card reveal">
+                        <div class="project-header" style="background: radial-gradient(circle, #701a75 0%, #000 70%);">
+                            <i class="fas fa-camera-retro" style="color: #f0abfc;"></i>
+                        </div>
+                        <div class="project-body">
+                            <div class="meta-row">
+                                <span class="tag">Digital Gallery</span>
+                                <span class="status status-blink">Live</span>
+                            </div>
+                            <h3>Event Photo Live</h3>
+                            <p>An immersive photo gallery platform designed for high-resolution event showcasing. Optimized for speed and visual storytelling.</p>
+                            <a href="https://shrabongallery.netlify.app/" target="_blank" class="project-link">View Gallery</a>
+                        </div>
+                    </div>
+                </div>
+            `,
+            about: `
+                <div class="about-story-container">
+                    
+                    <!-- SECTION 1: IDENTITY -->
+                    <div class="about-row reveal">
+                        <div class="about-text">
+                            <h2 class="about-h">Behind the <br> <span class="highlight">Code</span></h2>
+                            <p class="about-p">
+                                I’m <span id="typewriter-target" style="color: #fff; font-weight: 700;"></span><span class="cursor-bar"></span> — a BCA student on a journey to becoming a software engineer. I don't just write code, I design digital experiences that feel intuitive, powerful, and future-ready.
+                            </p>
+                        </div>
+                        <div class="about-visual">
+                            <div class="profile-glow-ring"></div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: PHILOSOPHY -->
+                    <div class="about-row reveal">
+                        <div class="about-text">
+                            <h2 class="about-h">Where Logic Meets <span class="highlight">Creativity</span></h2>
+                            <p class="about-p">
+                                My mindset bridges aesthetic design with hardcore problem-solving. Every project I build focuses on clarity, performance, and user impact — not just functionality.
+                            </p>
+                        </div>
+                        <div class="about-visual">
+                            <div class="abstract-card">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: GROWTH JOURNEY -->
+                    <div class="about-row reveal">
+                        <div class="about-text">
+                            <h2 class="about-h">Learning. Building. <span class="highlight">Evolving.</span></h2>
+                            <p class="about-p">
+                                As a BCA student, I’m constantly sharpening my skills in programming, system thinking, and modern development tools. Each line of code brings me closer to my goal of becoming a professional software engineer.
+                            </p>
+                        </div>
+                        <div class="about-visual">
+                            <div class="abstract-card">
+                                <i class="fas fa-code-branch"></i>
+                            </div>
+                        </div>
+                    </div>
+<!-- SECTION 4: VISION -->
+                    <div class="about-row reveal">
+                        <div class="about-text">
+                            <h2 class="about-h">Engineering the <span class="highlight">Future</span></h2>
+                            <p class="about-p">
+                                I aim to build scalable software, intelligent systems, and meaningful digital products that solve real-world problems. The future is automated, and I am building the engines that drive it.
+                            </p>
+                        </div>
+                        <div class="about-visual">
+                            <div class="abstract-card">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            `,
+            contact: `
+                <div class="reveal" style="text-align: center; max-width: 700px; margin: 0 auto; background: rgba(10,10,10,0.8); padding: 4rem; border-radius: 30px; border: 1px solid var(--border-light); backdrop-filter:blur(20px);">
+                    <i class="fas fa-paper-plane" style="font-size: 4rem; color: #d946ef; margin-bottom: 1.5rem; filter: drop-shadow(0 0 20px rgba(217, 70, 239, 0.5));"></i>
+                    <h2 style="margin-bottom: 1rem; font-size:2.5rem;">Get in Touch</h2>
+                    <p style="color: #94a3b8; margin-bottom: 2rem; font-size:1.1rem;">Interested in AI automation for your business? Fill out the form below and we’ll get back to you shortly.</p>
+                    
+                    <form action="https://api.web3forms.com/submit" method="POST" style="display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-bottom: 2rem;">
+                        <input type="hidden" name="access_key" value="c35f5f86-0066-4e5d-98ef-7b508700698d">
+                        <input type="text" name="name" required placeholder="Name" style="padding: 1rem; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-family: inherit; font-size: 1rem;">
+                        <input type="email" name="email" required placeholder="Email" style="padding: 1rem; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-family: inherit; font-size: 1rem;">
+                        <input type="tel" name="phone" placeholder="Phone Number" style="padding: 1rem; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-family: inherit; font-size: 1rem;">
+                        <textarea name="message" required placeholder="Your Requirement" rows="4" style="padding: 1rem; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; outline: none; font-family: inherit; resize: none; font-size: 1rem;"></textarea>
+                        <button type="submit" class="btn btn-primary" style="justify-content: center; font-size: 1.1rem; padding: 1rem;">Submit Request</button>
+                    </form>
+
+                    <p style="color: #94a3b8; font-size:1rem; margin-bottom: 1.5rem;">Or message us directly for faster response.</p>
+                    
+                    <!-- UPDATED CONTACT SOCIAL LINKS -->
+                    <div style="display: flex; justify-content: center; gap: 2rem; font-size: 2rem;">
+                        <a href="https://wa.me/917797315569" target="_blank" style="color: #fff; transition:0.3s; opacity:0.7;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.linkedin.com/in/shrabon-paul-379a44308?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" style="color: #fff; transition:0.3s; opacity:0.7;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/shrabon_paul125?igsh=MTdxajZvN3VxYmNodg==" target="_blank" style="color: #fff; transition:0.3s; opacity:0.7;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            `
+        };
+
+        const titles = {
+            foryou: "Recommended For You",
+            ai: "AI & Automation",
+            work: "Project Portfolio",
+            about: "About The Developer",
+            contact: "Get In Touch"
+        };
+
+        // Initialize
+        document.getElementById('dynamic-content').innerHTML = contentData.foryou;
+        setupScrollReveal();
+        initTiltEffect(); // START TILT EFFECT
+
+        // Unified Category Selector
+        function selectCategory(category) {
+            // Highlight Icon
+            document.querySelectorAll('.category-item').forEach(item => item.classList.remove('active'));
+            const activeItem = document.querySelector(`.category-item[data-cat="${category}"]`);
+            if (activeItem) activeItem.classList.add('active');
+
+            // Swap Content
+            const contentDiv = document.getElementById('dynamic-content');
+            const titleArea = document.querySelector('#dynamic-title-area h2');
+            const subTitle = document.querySelector('#dynamic-title-area p');
+
+            contentDiv.classList.add('fade-out');
+
+            setTimeout(() => {
+                contentDiv.innerHTML = contentData[category] || "<p>Loading...</p>";
+                titleArea.innerText = titles[category] || "Details";
+                
+                if(category === 'work') subTitle.innerText = "A segmented collection of my commercial and creative work.";
+                else if(category === 'about') subTitle.innerText = "My journey from BCA student to Software Engineer.";
+                else subTitle.innerText = "Curated based on your interests.";
+                
+                contentDiv.classList.remove('fade-out');
+                setupScrollReveal(); // Re-trigger animations for new content
+                initTiltEffect(); // Re-trigger tilt on new elements
+                
+                if(category === 'about') {
+                    // Trigger the Typewriter Effect
+                    runTypewriter();
+                }
+
+            }, 500);
+
+            // Smooth Scroll
+            setTimeout(() => {
+                const element = document.getElementById('content-anchor');
+                if (element) element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+            
+            showHome();
+        }
+    </script>
+</body>
+</html>
